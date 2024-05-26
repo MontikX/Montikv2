@@ -1,68 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hacker Hub</title>
+    <title>Хакерский Сайт</title>
     <style>
         body {
-            background-color: #0e0e0e;
+            background-color: #0d0d0d;
             color: #00ff00;
             font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        header {
+
+        .container {
             text-align: center;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin: 0;
             padding: 20px;
+            animation: glitch 1.5s infinite;
         }
-        nav {
-            text-align: center;
-            margin-bottom: 20px;
+
+        @keyframes glitch {
+            0% { text-shadow: 2px 2px 0 #ff00ff, -2px -2px 0 #00ffff; }
+            50% { text-shadow: -2px -2px 0 #ff00ff, 2px 2px 0 #00ffff; }
+            100% { text-shadow: 2px 2px 0 #ff00ff, -2px -2px 0 #00ffff; }
         }
-        nav a {
+
+        .calc-container {
+            background-color: #1a1a1a;
+            padding: 20px;
+            border: 2px solid #00ff00;
+            display: inline-block;
+        }
+
+        #calc-display {
+            width: 100%;
+            padding: 10px;
+            background-color: #0d0d0d;
             color: #00ff00;
-            text-decoration: none;
-            margin: 0 15px;
+            border: 1px solid #00ff00;
+            font-size: 1.5em;
+            text-align: right;
         }
-        nav a:hover {
-            text-decoration: underline;
+
+        .calc-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
         }
-        .banner {
-            text-align: center;
-            padding: 50px 0;
-        }
-        .content {
-            width: 80%;
-            margin: 0 auto;
-        }
-        footer {
-            text-align: center;
+
+        .calc-buttons button {
+            background-color: #0d0d0d;
+            color: #00ff00;
+            border: 1px solid #00ff00;
             padding: 20px;
-            border-top: 1px solid #00ff00;
-            margin-top: 50px;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+
+        .calc-buttons button:hover {
+            background-color: #00ff00;
+            color: #0d0d0d;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 0.8em;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Hacker Hub</h1>
-    </header>
-    <nav>
-        <a href="#">Главная</a>
-        <a href="#">Форум</a>
-        <a href="#">Инструменты</a>
-        <a href="#">Статьи</a>
-        <a href="#">Контакты</a>
-    </nav>
-    <div class="banner">
-        <h2>Добро пожаловать в Hacker Hub</h2>
-        <p>Твое пространство для хакерских знаний и инструментов</p>
+    <div class="container">
+        <header>
+            <h1>Хакерский Сайт</h1>
+        </header>
+        <main>
+            <section class="calculator">
+                <h2>Калькулятор</h2>
+                <div class="calc-container">
+                    <input type="text" id="calc-display" disabled>
+                    <div class="calc-buttons">
+                        <button onclick="pressKey('1')">1</button>
+                        <button onclick="pressKey('2')">2</button>
+                        <button onclick="pressKey('3')">3</button>
+                        <button onclick="pressKey('+')">+</button>
+                        <button onclick="pressKey('4')">4</button>
+                        <button onclick="pressKey('5')">5</button>
+                        <button onclick="pressKey('6')">6</button>
+                        <button onclick="pressKey('-')">-</button>
+                        <button onclick="pressKey('7')">7</button>
+                        <button onclick="pressKey('8')">8</button>
+                        <button onclick="pressKey('9')">9</button>
+                        <button onclick="pressKey('*')">*</button>
+                        <button onclick="pressKey('0')">0</button>
+                        <button onclick="clearDisplay()">C</button>
+                        <button onclick="pressKey('/')">/</button>
+                        <button onclick="calculate()">=</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>© 2024 Хакерский Сайт</p>
+        </footer>
     </div>
-    <div class="content">
-        <h3>Последние новости</h3>
-        <p>Здесь будут последние обновления и новости...</p>
-    </div>
-    <footer>
-        <p>&copy; 2024 Hacker Hub. Все права защищены.</p>
-    </footer>
+    <script>
+        function pressKey(key) {
+            const display = document.getElementById('calc-display');
+            display.value += key;
+        }
+
+        function clearDisplay() {
+            const display = document.getElementById('calc-display');
+            display.value = '';
+        }
+
+        function calculate() {
+            const display = document.getElementById('calc-display');
+            try {
+                display.value = eval(display.value);
+            } catch {
+                display.value = 'Ошибка';
+            }
+        }
+    </script>
 </body>
 </html>
